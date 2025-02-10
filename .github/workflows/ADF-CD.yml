@@ -37,22 +37,22 @@ jobs:
     #Disable Triggers
     - name: Run Pre-deployment script
       shell: pwsh
-      run: pwsh -command "./.github/workflows/PrePostDeploymentScript.ps1 -armTemplate ${{ vars.ARM_TEMPLATE_FILE }}  -ResourceGroupName ${{ vars.AZURE_RG }} -DataFactoryName ${{ vars.ADF_FACTORYNAME }} -predeployment $true -deleteDeployment $false"
+      run: pwsh -command "./.github/workflows/PrePostDeploymentScript.ps1 -armTemplate ${{ secrets.ARM_TEMPLATE_FILE }}  -ResourceGroupName ${{ vars.AZURE_RG }} -DataFactoryName ${{ vars.ADF_FACTORYNAME }} -predeployment $true -deleteDeployment $false"
       
       
     - name: Deploy ADF ARM Templates ${{ matrix.stage }}
       uses: Azure/arm-deploy@v1
       with:
         resourceGroupName: ${{ vars.AZURE_RG }}
-        template: ${{ vars.ARM_TEMPLATE_FILE }}
+        template: ${{ secrets.ARM_TEMPLATE_FILE }}
         parameters: 
-          ${{ vars.ARM_TEMPLATE_PARAMETERS_FILE }}
+          ${{ secrets.ARM_TEMPLATE_PARAMETERS_FILE }}
           factoryName=${{ vars.ADF_FACTORYNAME }} 
-          ADLS_properties_typeProperties_url=${{ vars.ADF_ADLS_PROPERTIES_TYPEPROPERTIES_URL }} 
-          AzureBlob_properties_typeProperties_serviceEndpoint=${{ vars.ADF_AZUREBLOB_PROPERTIES_TYPEPROPERTIES_SERVICEENDPOINT }}
-          AzureKeyVault_properties_typeProperties_baseUrl=${{ vars.ADF_AZUREKEYVAULT_PROPERTIES_TYPEPROPERTIES_BASEURL }}
+          #ADLS_properties_typeProperties_url=${{ vars.ADF_ADLS_PROPERTIES_TYPEPROPERTIES_URL }} 
+          #AzureBlob_properties_typeProperties_serviceEndpoint=${{ vars.ADF_AZUREBLOB_PROPERTIES_TYPEPROPERTIES_SERVICEENDPOINT }}
+          #AzureKeyVault_properties_typeProperties_baseUrl=${{ vars.ADF_AZUREKEYVAULT_PROPERTIES_TYPEPROPERTIES_BASEURL }}
     
     #Enable Triggers
     - name: Run Post-deployment script
       shell: pwsh
-      run: pwsh -command "./PrePostDeploymentScript.ps1 -armTemplate ${{ vars.ARM_TEMPLATE_FILE }} -ResourceGroupName ${{ vars.AZURE_RG }} -DataFactoryName ${{ vars.ADF_FACTORYNAME }} -predeployment $false -deleteDeployment $true"
+      run: pwsh -command "./.github/workflows/PrePostDeploymentScript.ps1 -armTemplate ${{ secrets.ARM_TEMPLATE_FILE }} -ResourceGroupName ${{ vars.AZURE_RG }} -DataFactoryName ${{ vars.ADF_FACTORYNAME }} -predeployment $false -deleteDeployment $true"
