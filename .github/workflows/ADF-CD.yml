@@ -1,6 +1,6 @@
 name: ADF Deployment
 on:
-  #push:
+  push:
     #branches:
       #- adf_publish
   workflow_dispatch:
