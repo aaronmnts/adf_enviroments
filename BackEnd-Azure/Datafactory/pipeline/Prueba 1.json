@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "Prueba 1",
 	"properties": {
 		"activities": [
 			{
@@ -69,7 +69,7 @@
 			}
 		],
 		"folder": {
-			"name": "test 2"
+			"name": "Prueba"
 		},
 		"annotations": [],
 		"lastPublishTime": "2025-02-10T16:21:39Z"
