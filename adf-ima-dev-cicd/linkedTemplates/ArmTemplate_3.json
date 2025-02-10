@@ -406,6 +406,89 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Prueba 3')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Cat Products",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_Producto_XM",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "product",
+									"Rango": "A2:E5000"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Parquet_XM",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/ASE2",
+									"File": "DS_Parquet_XM"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Prueba"
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-10T16:21:39Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DF_ASE2_Catalogos')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -1452,140 +1535,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/DF_SS_Catalogos')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PPL_ASE_Master')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "PPL_ASE_IngestaVentas",
-						"type": "ExecutePipeline",
-						"dependsOn": [],
-						"policy": {
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PPL_ASE_IngestaVentas",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "PPL_ASE_TransformVentas",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "PPL_ASE_IngestaVentas",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PPL_ASE_TransformVentas",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "PPL_ASE_IngestaCatalogos",
-						"type": "ExecutePipeline",
-						"dependsOn": [],
-						"policy": {
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PPL_ASE_IngestaCatalogos",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "PPL_ASE_TransformCatalogos",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "PPL_ASE_IngestaCatalogos",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PPL_ASE_TransformCatalogos",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "PPL_ASE_Cleansed_ReporteVentas",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "PPL_ASE_TransformCatalogos",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "PPL_ASE_TransformVentas",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PPL_ASE_Cleansed_ReporteVentas",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "CURSO DF/ASE"
-				},
-				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:41Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PPL_ASE_TransformVentas')]",
-				"[concat(variables('factoryId'), '/pipelines/PPL_ASE_TransformCatalogos')]",
-				"[concat(variables('factoryId'), '/pipelines/PPL_ASE_Cleansed_ReporteVentas')]"
 			]
 		}
 	]
