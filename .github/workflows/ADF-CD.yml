@@ -1,8 +1,8 @@
 name: ADF Deployment
 on:
   push:
-    #branches:
-      #- adf_publish
+    branches:
+      - adf_publish
   workflow_dispatch:
     inputs:
       skipAzModuleInstallation:
