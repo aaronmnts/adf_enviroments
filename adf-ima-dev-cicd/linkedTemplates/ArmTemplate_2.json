@@ -1,0 +1,2601 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-ima-dev-cicd"
+		},
+		"LS_Databricks_zsbdevdbk01_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "1117-055615-3xzy9lr7"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_PQG_TZCatProductos_parquet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSCurso",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CURSO DF"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "TransformZone/PQG",
+						"fileSystem": "cursodatafactory"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "ManufacturerID",
+						"type": "UTF8"
+					},
+					{
+						"name": "ManufacturerIDok",
+						"type": "UTF8"
+					},
+					{
+						"name": "Manufacturer",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Parquet_XM')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSCurso",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Contenedor": {
+						"type": "string"
+					},
+					"Folder": {
+						"type": "string"
+					},
+					"File": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "CURSO DF/XM"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().File",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().Folder",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().Contenedor",
+							"type": "Expression"
+						}
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Zip",
+						"type": "UTF8"
+					},
+					{
+						"name": "City",
+						"type": "UTF8"
+					},
+					{
+						"name": "State",
+						"type": "UTF8"
+					},
+					{
+						"name": "Region",
+						"type": "UTF8"
+					},
+					{
+						"name": "District",
+						"type": "UTF8"
+					},
+					{
+						"name": "Country",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Producto_XM')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSCurso",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"File": {
+						"type": "string"
+					},
+					"Folder": {
+						"type": "string"
+					},
+					"Contenedor": {
+						"type": "string"
+					},
+					"Hoja": {
+						"type": "string"
+					},
+					"Rango": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "CURSO DF/XM"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().Hoja",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().File",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().Folder",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().Contenedor",
+							"type": "Expression"
+						}
+					},
+					"range": {
+						"value": "@dataset().Rango",
+						"type": "Expression"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_SS_Productos')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSCurso",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"File": {
+						"type": "string"
+					},
+					"Folder": {
+						"type": "string"
+					},
+					"Contenedor": {
+						"type": "string"
+					},
+					"Hoja": {
+						"type": "string"
+					},
+					"Rango": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "CURSO DF/SS"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().Hoja",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().File",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().Folder",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().Contenedor",
+							"type": "Expression"
+						}
+					},
+					"range": {
+						"value": "@dataset().Rango",
+						"type": "Expression"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_SS_TZCatProductos')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSCurso",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CURSO DF"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "TransformZone/SS",
+						"fileSystem": "cursodatafactory"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_SS_parquet_IN')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSCurso",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "CURSO DF"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "LandingZone/SS",
+						"fileSystem": "cursodatafactory"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "ProductID",
+						"type": "UTF8"
+					},
+					{
+						"name": "Product",
+						"type": "UTF8"
+					},
+					{
+						"name": "Category",
+						"type": "UTF8"
+					},
+					{
+						"name": "ManufacturerID",
+						"type": "UTF8"
+					},
+					{
+						"name": "Price",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Data_INEGI_Input')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "HTTP_INEGI",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Folder": {
+						"type": "string",
+						"defaultValue": "pruebas"
+					}
+				},
+				"folder": {
+					"name": "Test_DataGov"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"Header": {
+							"type": "object",
+							"properties": {
+								"Name": {
+									"type": "string"
+								},
+								"Email": {
+									"type": "string"
+								}
+							}
+						},
+						"Series": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"INDICADOR": {
+										"type": "string"
+									},
+									"FREQ": {
+										"type": "string"
+									},
+									"TOPIC": {
+										"type": "string"
+									},
+									"UNIT": {
+										"type": "string"
+									},
+									"UNIT_MULT": {
+										"type": "string"
+									},
+									"NOTE": {
+										"type": "string"
+									},
+									"SOURCE": {
+										"type": "string"
+									},
+									"LASTUPDATE": {
+										"type": "string"
+									},
+									"STATUS": {
+										"type": "string"
+									},
+									"OBSERVATIONS": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"TIME_PERIOD": {
+													"type": "string"
+												},
+												"OBS_VALUE": {
+													"type": "string"
+												},
+												"OBS_EXCEPTION": {
+													"type": "null"
+												},
+												"OBS_STATUS": {
+													"type": "string"
+												},
+												"OBS_SOURCE": {
+													"type": "string"
+												},
+												"OBS_NOTE": {
+													"type": "string"
+												},
+												"COBER_GEO": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PPQ_JAGG_LandingZone')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_zsbdevdl01",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"File": {
+						"type": "string"
+					},
+					"Folder": {
+						"type": "string"
+					},
+					"Contenedor": {
+						"type": "string"
+					},
+					"Hoja": {
+						"type": "string"
+					},
+					"Rango": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "CURSO DF/JAGG"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().Hoja",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().File",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().Folder",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().Contenedor",
+							"type": "Expression"
+						}
+					},
+					"range": {
+						"value": "@dataset().Rango",
+						"type": "Expression"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PPQ_SS_LandingZone')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSCurso",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Contenedor": {
+						"type": "string"
+					},
+					"Folder": {
+						"type": "string"
+					},
+					"File": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "CURSO DF/SS"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().File",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().Folder",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().Contenedor",
+							"type": "Expression"
+						}
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Zip",
+						"type": "UTF8"
+					},
+					{
+						"name": "City",
+						"type": "UTF8"
+					},
+					{
+						"name": "State",
+						"type": "UTF8"
+					},
+					{
+						"name": "Region",
+						"type": "UTF8"
+					},
+					{
+						"name": "District",
+						"type": "UTF8"
+					},
+					{
+						"name": "Country",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PQ_JAGG')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_zsbdevdl01",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Contenedor": {
+						"type": "string"
+					},
+					"Folder": {
+						"type": "string"
+					},
+					"File": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "CURSO DF/JAGG"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().File",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().Folder",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().Contenedor",
+							"type": "Expression"
+						}
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Zip",
+						"type": "UTF8"
+					},
+					{
+						"name": "City",
+						"type": "UTF8"
+					},
+					{
+						"name": "State",
+						"type": "UTF8"
+					},
+					{
+						"name": "Region",
+						"type": "UTF8"
+					},
+					{
+						"name": "District",
+						"type": "UTF8"
+					},
+					{
+						"name": "Country",
+						"type": "UTF8"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_Databricks_zsbdevdbk01')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-5613883684859699.19.azuredatabricks.net",
+					"accessToken": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "LS_KeyVault_zsbdevkv01",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "Databricks-AccessToken"
+					},
+					"existingClusterId": "[parameters('LS_Databricks_zsbdevdbk01_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/001_PL_ConsultaINEGI')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ConsultarDatosINEGI",
+						"description": "Hacer una llamada al API de INEGI para traer información de las tiendas del país.",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_001_INEGI_Source",
+								"type": "DatasetReference",
+								"parameters": {
+									"InegiToken": {
+										"value": "@pipeline().globalParameters.InegiToken",
+										"type": "Expression"
+									},
+									"NumeroTiendas": {
+										"value": "@pipeline().globalParameters.NumeroTiendas",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_001_ADLS_Sink_JSON",
+								"type": "DatasetReference",
+								"parameters": {
+									"Carpeta": {
+										"value": "@CONCAT('INEGI/', string(convertFromUtc(utcnow(),'Central Standard Time','yyyy')))",
+										"type": "Expression"
+									},
+									"Zona": "BRONCE",
+									"Archivo": "inegi_catalogo_tiendas.json"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "OXXO/MEXICO/CATALOGOS/INEGI"
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-10T16:21:38Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/001_PL_JoinUsuarios')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ObtenerListaArchivos",
+						"description": "Obtener lista de archivos dentro del folder de Usuarios.",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "DS_001_ADLS_Source",
+								"type": "DatasetReference",
+								"parameters": {
+									"Carpeta": "USUARIOS",
+									"Zona": "BRONCE"
+								}
+							},
+							"fieldList": [
+								"childItems"
+							],
+							"storeSettings": {
+								"type": "AzureBlobFSReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "EjecutarJoinUsuarios",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "ObtenerListaArchivos",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "EliminarArchivosAnteriores",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Shared/OXXO/MEXICO/EXTRACCION/001_Demo/001_NB_JoinUsuarios",
+							"baseParameters": {
+								"ListaArchivos": {
+									"value": "@string(activity('ObtenerListaArchivos').output.childitems)",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "LS_Databricks_zsbdevdbk01",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "EnviarHaciaArchive",
+						"description": "Enviar los archivos de la carpeta USUARIOS en zona plata a archive para llevar un historial.",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_001_ADLS_Source",
+								"type": "DatasetReference",
+								"parameters": {
+									"Carpeta": "USUARIOS",
+									"Zona": "PLATA"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_001_ADLS_Sink_JSON",
+								"type": "DatasetReference",
+								"parameters": {
+									"Carpeta": {
+										"value": "@CONCAT('USUARIOS/ARCHIVE/', convertFromUtc(utcnow(), 'Central Standard Time', 'yyyyMMdd'))",
+										"type": "Expression"
+									},
+									"Zona": "PLATA",
+									"Archivo": "{*}"
+								}
+							}
+						]
+					},
+					{
+						"name": "EliminarArchivosAnteriores",
+						"description": "Eliminar los archivos de la carpeta USUARIOS que se acaban de pasar a ARCHIVE",
+						"type": "Delete",
+						"dependsOn": [
+							{
+								"activity": "EnviarHaciaArchive",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "DS_001_ADLS_Sink_NoDelimiter",
+								"type": "DatasetReference",
+								"parameters": {
+									"Carpeta": "USUARIOS",
+									"Zona": "PLATA",
+									"Archivo": "_{*}"
+								}
+							},
+							"logStorageSettings": {
+								"linkedServiceName": {
+									"referenceName": "LS_ADLS_zsbdevdl01",
+									"type": "LinkedServiceReference"
+								},
+								"path": "oxxo/MEXICO/PLATA/CATALOGO/LOGS"
+							},
+							"enableLogging": true,
+							"storeSettings": {
+								"type": "AzureBlobFSReadSettings",
+								"recursive": false,
+								"wildcardFileName": "{*}",
+								"enablePartitionDiscovery": false
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "OXXO/MEXICO/CATALOGOS/USUARIOS"
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-10T16:21:38Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_Databricks_zsbdevdbk01')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/001_PL_MensajePromociones')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Crea un archivo con los mensajes que se enviaran a los nuevos usuarios.",
+				"activities": [
+					{
+						"name": "EjecutarPromociones",
+						"description": "Ejecutar notebook de Promociones para generar mensaje para usuarios nuevos.",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Shared/OXXO/MEXICO/ANALITICA/001_Demo/001_NB_PromocionNuevosUsuarios"
+						},
+						"linkedServiceName": {
+							"referenceName": "LS_Databricks_zsbdevdbk01",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "OXXO/MEXICO/CATALOGOS/PROMOCIONES"
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-10T16:21:37Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_Databricks_zsbdevdbk01')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PPL_ASE2_IngestaCatalogos')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Cat Products",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "ProductID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProductID",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Product",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Product",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Category",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Category",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "ManufacturerID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ManufacturerID",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Price",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Price",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_ASE2_Excel_IN",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "product",
+									"Rango": "A2:E5000"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_ASE2_Parquet_OUT",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/ASEL2",
+									"File": "ASE2_Cat_Productos.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy Cat Geo",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy Cat Products",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_ASE2_Excel_IN",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "geo",
+									"Rango": "A4:F200000"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_ASE2_Parquet_OUT",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/ASEL2",
+									"File": "ASE2_Cat_Geo.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy Cat Manufacturer",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy Cat Geo",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_ASE2_Excel_IN",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "manufacturer",
+									"Rango": "A2:O4"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_ASE2_Parquet_OUT",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/ASEL2",
+									"File": "ASE2_Cat_Manufacturer.parquet"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "CURSO DF/ASE2"
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-10T16:21:39Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PPL_ASE_IngestaCatalogos')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Cat Products",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "ProductID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProductID",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Product",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Product",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Category",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Category",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "ManufacturerID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ManufacturerID",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Price",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Price",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_ASE_Excel_IN",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Hoja": "product",
+									"Rango": "A2:E2500"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_ASE_Parquet_OUT",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "ASE_Cat_Productos.parquet",
+									"Folder": "LandingZone/ASE"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy Cat Geo",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy Cat Products",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Zip",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Zip",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "City",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "City",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "State",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "State",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Region",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Region",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "District",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "District",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_ASE_Excel_IN",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Hoja": "geo",
+									"Rango": "A4:F200000"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_ASE_Parquet_OUT",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "ASE_Cat_Geografia.parquet",
+									"Folder": "LandingZone/ASE"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy Cat Manufacturer",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy Cat Geo",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_ASE_Excel_IN",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Hoja": "manufacturer",
+									"Rango": "A2:O4"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_ASE_Parquet_OUT",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "ASE_Cat_Manufacturer.parquet",
+									"Folder": "LandingZone/ASE"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "CURSO DF/ASE"
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-10T16:21:39Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PPL_ASE_IngestaVentas')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Get Metadata Existe",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "DS_ASE_Ventas_CSV_IN",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"fieldList": [
+								"size"
+							],
+							"storeSettings": {
+								"type": "AzureBlobFSReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "If Condition Existe",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Get Metadata Existe",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@greater(activity('Get Metadata Existe').output.size,0) ",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "Copy Ventas",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"mappings": [
+												{
+													"source": {
+														"name": "ProductID",
+														"type": "String",
+														"physicalType": "String"
+													},
+													"sink": {
+														"name": "ProductID",
+														"type": "String",
+														"physicalType": "UTF8"
+													}
+												},
+												{
+													"source": {
+														"name": "Date",
+														"type": "String",
+														"physicalType": "String"
+													},
+													"sink": {
+														"name": "Date",
+														"type": "String",
+														"physicalType": "UTF8"
+													}
+												},
+												{
+													"source": {
+														"name": "Zip",
+														"type": "String",
+														"physicalType": "String"
+													},
+													"sink": {
+														"name": "Zip",
+														"type": "String",
+														"physicalType": "UTF8"
+													}
+												},
+												{
+													"source": {
+														"name": "Units",
+														"type": "String",
+														"physicalType": "String"
+													},
+													"sink": {
+														"name": "Units",
+														"type": "String",
+														"physicalType": "UTF8"
+													}
+												},
+												{
+													"source": {
+														"name": "Revenue",
+														"type": "String",
+														"physicalType": "String"
+													},
+													"sink": {
+														"name": "Revenue",
+														"type": "String",
+														"physicalType": "UTF8"
+													}
+												}
+											],
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "DS_ASE_Ventas_CSV_IN",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DS_ASE_Parquet_OUT",
+											"type": "DatasetReference",
+											"parameters": {
+												"File": "ASE_Ventas.parquet",
+												"Folder": "LandingZone/ASE"
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"variables": {
+					"Size": {
+						"type": "String"
+					},
+					"Year": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "CURSO DF/ASE"
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-10T16:21:39Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PPL_JAGG_IngestaCatalogos')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Cat Products 2022",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PPQ_JAGG_LandingZone",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "product",
+									"Rango": "A2:E5000"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PQ_JAGG",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/JAGG",
+									"File": "JAGG_Cat_Productos.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy Cat Geo",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy Cat Products 2022",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PPQ_JAGG_LandingZone",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "geo",
+									"Rango": "A4:F200000"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PQ_JAGG",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/JAGG",
+									"File": "JAGG_Cat_Geo.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy Cat Manufacturer",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy Cat Geo",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PPQ_JAGG_LandingZone",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "manufacturer",
+									"Rango": "A2:O4"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PQ_JAGG",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/JAGG",
+									"File": "JAGG_Cat_Manufacturer.parquet"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "CURSO DF/JAGG"
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-10T16:21:38Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/PPQ_JAGG_LandingZone')]",
+				"[concat(variables('factoryId'), '/datasets/PQ_JAGG')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PPL_PQG_IngestaCatalogos')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Cat Products",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "ProductID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProductID",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Product",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Product",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Category",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Category",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "ManufacturerID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ManufacturerID",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									},
+									{
+										"source": {
+											"name": "Price",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Price",
+											"type": "String",
+											"physicalType": "UTF8"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_PQG_Excel_IN",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "product",
+									"Rango": "A2:E5000"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_PQG_Parquet",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/ASE2",
+									"File": "ASE2_Cat_Productos.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy Cat Geo",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy Cat Products",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_PQG_Excel_IN",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "geo",
+									"Rango": "A4:F200000"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_PQG_Parquet_OUT",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/ASE2",
+									"File": "ASE2_Cat_Productos.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy Cat Manufacturer",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy Cat Geo",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_PQG_Excel_IN",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "manufacturer",
+									"Rango": "A2:O4"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_PQG_Parquet_OUT",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/ASE2",
+									"File": "ASE2_Cat_Manufacturer.parquet"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "CURSO DF/PQG"
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-10T16:21:38Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PPL_SS_IngestaCatalogos')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_SS_Productos",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "product",
+									"Rango": "A2:E5000"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PPQ_SS_LandingZone",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/ASE2",
+									"File": "PPQ_SS_LandingZone"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy Cat Geo",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy data1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_SS_Productos",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "geo",
+									"Rango": "A4:F200000"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PPQ_SS_LandingZone",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/ASE2",
+									"File": "PPQ_SS_LandingZone"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy Cat Manufacturer",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy Cat Geo",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_SS_Productos",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "manufacturer",
+									"Rango": "A2:O4"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PPQ_SS_LandingZone",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/ASE2",
+									"File": "PPQ_SS_LandingZone"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "CURSO DF/SS"
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-10T16:21:40Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SS_Productos')]",
+				"[concat(variables('factoryId'), '/datasets/PPQ_SS_LandingZone')]"
+			]
+		}
+	]
+}
