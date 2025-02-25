@@ -47,14 +47,6 @@
 			"type": "string",
 			"defaultValue": "https://zdbzprdl01.dfs.core.windows.net/"
 		},
-		"default_properties_InegiToken_value": {
-			"type": "string",
-			"defaultValue": "add79752-383e-4750-bf12-b607997305e5"
-		},
-		"default_properties_NumeroTiendas_value": {
-			"type": "string",
-			"defaultValue": "100"
-		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -90,12 +82,6 @@
 					},
 					"zdbzprdl01_accountKey": {
 						"value": "[parameters('zdbzprdl01_accountKey')]"
-					},
-					"default_properties_InegiToken_value": {
-						"value": "[parameters('default_properties_InegiToken_value')]"
-					},
-					"default_properties_NumeroTiendas_value": {
-						"value": "[parameters('default_properties_NumeroTiendas_value')]"
 					},
 					"ADLSCurso_properties_typeProperties_url": {
 						"value": "[parameters('ADLSCurso_properties_typeProperties_url')]"
