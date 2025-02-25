@@ -34,6 +34,12 @@
 		},
 		"zdbzprdl01_properties_typeProperties_url": {
 			"value": "https://zdbzprdl01.dfs.core.windows.net/"
+		},
+		"default_properties_InegiToken_value": {
+			"value": "add79752-383e-4750-bf12-b607997305e5"
+		},
+		"default_properties_NumeroTiendas_value": {
+			"value": "100"
 		}
 	}
 }

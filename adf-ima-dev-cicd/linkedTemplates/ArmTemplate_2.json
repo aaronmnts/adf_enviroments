@@ -753,7 +753,7 @@
 					"name": "OXXO/MEXICO/CATALOGOS/INEGI"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:38Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": []
 		},
@@ -953,7 +953,7 @@
 					"name": "OXXO/MEXICO/CATALOGOS/USUARIOS"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:38Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_Databricks_zsbdevdbk01')]"
@@ -995,7 +995,7 @@
 					"name": "OXXO/MEXICO/CATALOGOS/PROMOCIONES"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:37Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_Databricks_zsbdevdbk01')]"
@@ -1286,7 +1286,7 @@
 					"name": "CURSO DF/ASE2"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:39Z"
+				"lastPublishTime": "2025-02-25T17:00:15Z"
 			},
 			"dependsOn": []
 		},
@@ -1643,7 +1643,7 @@
 					"name": "CURSO DF/ASE"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:39Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": []
 		},
@@ -1844,7 +1844,7 @@
 					"name": "CURSO DF/ASE"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:39Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": []
 		},
@@ -2071,7 +2071,7 @@
 					"name": "CURSO DF/JAGG"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:38Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/PPQ_JAGG_LandingZone')]",
@@ -2363,7 +2363,7 @@
 					"name": "CURSO DF/PQG"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:38Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": []
 		},
@@ -2590,7 +2590,7 @@
 					"name": "CURSO DF/SS"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:40Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_SS_Productos')]",

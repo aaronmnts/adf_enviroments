@@ -46,6 +46,14 @@
 		"zdbzprdl01_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://zdbzprdl01.dfs.core.windows.net/"
+		},
+		"default_properties_InegiToken_value": {
+			"type": "string",
+			"defaultValue": "add79752-383e-4750-bf12-b607997305e5"
+		},
+		"default_properties_NumeroTiendas_value": {
+			"type": "string",
+			"defaultValue": "100"
 		}
 	},
 	"variables": {
@@ -132,7 +140,7 @@
 					"name": "OXXO/MEXICO/CATALOGOS/INEGI"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:38Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_001_INEGI_Source')]",
@@ -335,7 +343,7 @@
 					"name": "OXXO/MEXICO/CATALOGOS/USUARIOS"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:38Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_001_ADLS_Source')]",
@@ -381,7 +389,7 @@
 					"name": "OXXO/MEXICO/CATALOGOS/PROMOCIONES"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:37Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_Databricks_zsbdevdbk01')]"
@@ -462,7 +470,7 @@
 					"name": "OXXO/MEXICO/ORQUESTADORES"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:39Z"
+				"lastPublishTime": "2025-02-25T17:00:14Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/001_PL_ConsultaINEGI')]",
@@ -755,7 +763,7 @@
 					"name": "CURSO DF/ASE2"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:39Z"
+				"lastPublishTime": "2025-02-25T17:00:15Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_ASE2_Excel_IN')]",
@@ -806,7 +814,7 @@
 					"name": "CURSO DF/ASE2"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:39Z"
+				"lastPublishTime": "2025-02-25T17:00:14Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/DF_ASE2_Catalogos')]"
@@ -889,7 +897,7 @@
 					"name": "CURSO DF/ASE"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:40Z"
+				"lastPublishTime": "2025-02-25T17:00:14Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/DF_ASE_CZ_ReporteVentas')]"
@@ -1248,7 +1256,7 @@
 					"name": "CURSO DF/ASE"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:39Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_ASE_Excel_IN')]",
@@ -1452,7 +1460,7 @@
 					"name": "CURSO DF/ASE"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:39Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_ASE_Ventas_CSV_IN')]",
@@ -1585,7 +1593,7 @@
 					"name": "CURSO DF/ASE"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:41Z"
+				"lastPublishTime": "2025-02-25T17:00:15Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PPL_ASE_IngestaVentas')]",
@@ -1641,7 +1649,7 @@
 					"name": "CURSO DF/ASE"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:40Z"
+				"lastPublishTime": "2025-02-25T17:00:14Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/DF_ASE_Catalogos')]"
@@ -1720,7 +1728,7 @@
 					"name": "CURSO DF/ASE"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:39Z"
+				"lastPublishTime": "2025-02-25T17:00:14Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/DF_ASE_Ventas')]"
@@ -1949,7 +1957,7 @@
 					"name": "CURSO DF/JAGG"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:38Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/PPQ_JAGG_LandingZone')]",
@@ -2000,7 +2008,7 @@
 					"name": "CURSO DF/JAGG"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:40Z"
+				"lastPublishTime": "2025-02-25T17:00:14Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/DF_JAGG_Catalogos')]"
@@ -2291,7 +2299,7 @@
 					"name": "CURSO DF/PQG"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:38Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_PQG_Excel_IN')]",
@@ -2343,7 +2351,7 @@
 					"name": "CURSO DF/PQG"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:40Z"
+				"lastPublishTime": "2025-02-25T17:00:14Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
@@ -2572,7 +2580,7 @@
 					"name": "CURSO DF/SS"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:40Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_SS_Productos')]",
@@ -2623,7 +2631,7 @@
 					"name": "CURSO DF/SS"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:39Z"
+				"lastPublishTime": "2025-02-25T17:00:15Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/DF_SS_Catalogos')]"
@@ -2852,7 +2860,7 @@
 					"name": "CURSO DF/XM"
 				},
 				"annotations": [],
-				"lastPublishTime": "2025-02-10T16:21:39Z"
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_Producto_XM')]",
@@ -3111,6 +3119,178 @@
 				},
 				"annotations": [],
 				"lastPublishTime": "2025-02-10T16:21:39Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_Producto_XM')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Parquet_XM')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Prueba 4')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Cat Products",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_Producto_XM",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "product",
+									"Rango": "A2:E5000"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Parquet_XM",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/ASE2",
+									"File": "DS_Parquet_XM"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Prueba"
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-10T16:21:39Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_Producto_XM')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Parquet_XM')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Cat Products",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_Producto_XM",
+								"type": "DatasetReference",
+								"parameters": {
+									"File": "bi_dimensions.xlsx",
+									"Folder": "Origen/Data/USSales",
+									"Contenedor": "cursodatafactory",
+									"Hoja": "product",
+									"Rango": "A2:E5000"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Parquet_XM",
+								"type": "DatasetReference",
+								"parameters": {
+									"Contenedor": "cursodatafactory",
+									"Folder": "LandingZone/ASE2",
+									"File": "DS_Parquet_XM"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "test 2"
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-25T17:00:13Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_Producto_XM')]",
@@ -6105,7 +6285,16 @@
 			"name": "[concat(parameters('factoryName'), '/default')]",
 			"type": "Microsoft.DataFactory/factories/globalparameters",
 			"apiVersion": "2018-06-01",
-			"properties": {},
+			"properties": {
+				"InegiToken": {
+					"type": "string",
+					"value": "[parameters('default_properties_InegiToken_value')]"
+				},
+				"NumeroTiendas": {
+					"type": "string",
+					"value": "[parameters('default_properties_NumeroTiendas_value')]"
+				}
+			},
 			"dependsOn": []
 		}
 	]

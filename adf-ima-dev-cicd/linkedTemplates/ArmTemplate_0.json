@@ -19,6 +19,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'zdbzprdl01'"
 		},
+		"default_properties_InegiToken_value": {
+			"type": "string",
+			"defaultValue": "add79752-383e-4750-bf12-b607997305e5"
+		},
+		"default_properties_NumeroTiendas_value": {
+			"type": "string",
+			"defaultValue": "100"
+		},
 		"ADLSCurso_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://zsbdevdl01.dfs.core.windows.net/"
@@ -52,7 +60,16 @@
 			"name": "[concat(parameters('factoryName'), '/default')]",
 			"type": "Microsoft.DataFactory/factories/globalparameters",
 			"apiVersion": "2018-06-01",
-			"properties": {},
+			"properties": {
+				"InegiToken": {
+					"type": "string",
+					"value": "[parameters('default_properties_InegiToken_value')]"
+				},
+				"NumeroTiendas": {
+					"type": "string",
+					"value": "[parameters('default_properties_NumeroTiendas_value')]"
+				}
+			},
 			"dependsOn": []
 		},
 		{
